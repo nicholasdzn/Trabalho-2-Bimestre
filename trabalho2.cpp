@@ -55,9 +55,7 @@ int main() {
 
     int year;
     year = 2016;
-    int ratingCount;
     int yearCount = 0;
-    string ratingComparator;
     int ratingCount = 0;
 
     while(year != 1950){
