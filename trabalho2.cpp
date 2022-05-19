@@ -52,11 +52,11 @@ int main() {
 
     //exercicio 3
     int year;
-    year = 2017;
+    year = 2022;
     int yearCount = 0;
     int ratingCount = 0;
 
-    while(year != 1975){
+    while(year != 1){
         yearCount = 0;
         for(int i = 1; i <= 1001; i++){
             if(stoi(netflix[i].releaseYear) == year) yearCount++;    
@@ -74,10 +74,10 @@ int main() {
     int violenceCount = 0;
     //contador de filmes com sexual content
     int nsfwCount = 0;
-    year = 2017;
+    year = 2022;
     
-    //loop começando em 2017 (filme mais novo em registro) e sendo iterado ate chegar em 1975 (filme mais antigo regitrado)
-    while(year != 1975){
+    //loop começando em 2022 e sendo iterado ate chegar em 1, percorrendo por todos os filmes
+    while(year != 1){
         for(int i = 1; i <= 1001; i++){
             if(stoi(netflix[i].releaseYear) == year){
                 //filmes violentos estao entre 90 e 100 de rating description
