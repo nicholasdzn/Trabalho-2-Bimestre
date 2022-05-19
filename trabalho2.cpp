@@ -2,11 +2,6 @@
 #include <fstream>
 #include <iomanip>
 #include <string.h>
-using std::cout;
-using std::cin;
-using std::endl;
-using std::string;
-using std::stoi;
 using namespace std;
 
 struct Movies {
@@ -54,24 +49,24 @@ int main() {
     }
 
     int year;
-    year = 2016;
+    year = 2017;
     int yearCount = 0;
     int ratingCount = 0;
 
-    while(year != 1950){
+    //exercicio 3
+    while(year != 1988){
         yearCount = 0;
         for(int i = 1; i <= 1001; i++){
-            if(stoi(netflix[i].releaseYear) == year){
-                yearCount++;    
-            }
+            if(stoi(netflix[i].releaseYear) == year) yearCount++;    
         }
-        if(yearCount == 0){
-            continue;
-        }
+        if(yearCount == 0) continue;
         else{
             cout << "Ano: " << year << " Quantidade: " << yearCount << endl;
             year--;
         }
     }
+    //=======================================================================
+
+
 
 }
