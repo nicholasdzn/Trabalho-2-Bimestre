@@ -52,7 +52,7 @@ int main() {
 
     //exercicio 3
     int year;
-    year = 2022;
+    year = 2017;
     int yearCount = 0;
     int ratingCount = 0;
 
@@ -61,11 +61,12 @@ int main() {
         for(int i = 1; i <= 1001; i++){
             if(stoi(netflix[i].releaseYear) == year) yearCount++;    
         }
-        year--;
         if(yearCount == 0){
+            year--;
             continue;
         }
         cout << "Ano: " << year << " Quantidade: " << yearCount << endl;
+        year--;
     }
     //=======================================================================
 
