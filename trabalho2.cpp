@@ -2,6 +2,8 @@
 #include <fstream>
 #include <iomanip>
 #include <string.h>
+#include <string>
+#include <cctype>
 using namespace std;
 
 struct Movies {
@@ -71,9 +73,9 @@ int main() {
     //=======================================================================
 
     //exercicio 5
-    //contador de filmes violentos
     int violenceCount = 0;
-    //contador de filmes com sexual content
+    int foundViolence;
+    int foundNsfw;
     int nsfwCount = 0;
     year = 2022;
     
@@ -81,11 +83,11 @@ int main() {
     while(year != 1){
         for(int i = 1; i <= 1001; i++){
             if(stoi(netflix[i].releaseYear) == year){
-                //filmes violentos estao entre 90 e 100 de rating description
-                if(stoi(netflix[i].ratingDescription) >= 90 && stoi(netflix[i].ratingDescription) <= 100){
+                foundViolence = netflix[i].ratingLevel.find("violence");
+                foundNsfw = netflix[i].ratingLevel.find("sexual");
+                if(foundViolence != -1){
                     violenceCount++;
-                //filmes com sexual content estao acima de 110 de rating description
-                }else if(stoi(netflix[i].ratingDescription) >= 110){
+                }else if(foundNsfw != -1){
                     nsfwCount++;
                 }
             }
@@ -97,5 +99,22 @@ int main() {
     cout << "Filmes Violentos: " << violenceCount << " porcentagem: " << (100*violenceCount)/1000 << "%" << endl;
     cout << "Filmes contendo sexual content: " << nsfwCount << " porcentagem: " << (100*nsfwCount)/1000 << "%" << endl;
     //=========================================================================
+    string search;
+    cout << "Digite um titulo que deseja encontrar: " << endl;
+    getline(cin, search);
 
+    int foundSearch;
+    int searchCount = 0;
+
+    for(int i = 1; i <= 1001; i++){
+        foundSearch = netflix[i].title.find(search);
+        if(foundSearch != -1){
+            cout << netflix[i].title << " |  faixa etaria: " << netflix[i].rating << " | descricao: " << netflix[i].ratingLevel << endl;
+            searchCount++;
+        }
+    }
+
+    if(searchCount == 0){
+        cout << "Nao foi encontrado nenhum titulo !";
+    }
 }
