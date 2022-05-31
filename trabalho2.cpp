@@ -19,7 +19,8 @@ struct Movies {
 int main() {
     //exercicio 1
     Movies netflix[1002];
-    ifstream inMovies("netflix_all.csv", ios::in);
+    string namefile = "netflix_all.csv";
+    ifstream inMovies(namefile, ios::in);
 
     string title;
     string rating;
@@ -52,7 +53,7 @@ int main() {
     }
     //=========================================================
 
-    //exercicio 3
+    //exercicio 3 
     int year;
     year = 2017;
     int yearCount = 0;
