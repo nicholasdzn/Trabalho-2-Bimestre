@@ -2,6 +2,10 @@
 #include <fstream>
 #include <iomanip>
 #include <string.h>
+
+#define LIMIT_REGISTERS 1002
+#define EXIT_SUCCES 0
+
 using namespace std;
 
 struct Movies {
@@ -16,8 +20,9 @@ struct Movies {
 
 int main() {
     //exercicio 1
-    Movies netflix[1002];
-    ifstream inMovies("netflix_all.csv", ios::in);
+    Movies netflix[LIMIT_REGISTERS];
+    string namefile = "netflix_all.csv";
+    ifstream inMovies(namefile, ios::in);
 
     string title;
     string rating;
@@ -50,7 +55,7 @@ int main() {
     }
     //=========================================================
 
-    //exercicio 3
+    //exercicio 3  - corrigir - totais não conferem
     int year;
     year = 2022;
     int yearCount = 0;
@@ -96,5 +101,12 @@ int main() {
     cout << "Filmes Violentos: " << violenceCount << " porcentagem: " << (100*violenceCount)/1000 << "%" << endl;
     cout << "Filmes contendo sexual content: " << nsfwCount << " porcentagem: " << (100*nsfwCount)/1000 << "%" << endl;
     //=========================================================================
+    
+    // exercicio 2
+    //=========================================================================
 
+
+
+
+    return EXIT_SUCCES;
 }
