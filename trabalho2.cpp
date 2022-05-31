@@ -18,7 +18,7 @@ struct Movies {
 
 int main() {
     //exercicio 1
-    Movies netflix[LIMIT_REGISTERS];
+    Movies netflix[1002];
     string namefile = "netflix_all.csv";
     ifstream inMovies(namefile, ios::in);
 
@@ -53,7 +53,7 @@ int main() {
     }
     //=========================================================
 
-    //exercicio 3  - corrigir - totais não conferem
+    //exercicio 3 
     int year;
     year = 2017;
     int yearCount = 0;
