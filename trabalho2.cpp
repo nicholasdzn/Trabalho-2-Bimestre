@@ -100,6 +100,8 @@ int main() {
     cout << "Filmes Violentos: " << violenceCount << " porcentagem: " << (100*violenceCount)/1000 << "%" << endl;
     cout << "Filmes contendo sexual content: " << nsfwCount << " porcentagem: " << (100*nsfwCount)/1000 << "%" << endl;
     //=========================================================================
+    
+    //exercicio 6
     string search;
     cout << "Digite um titulo que deseja encontrar: " << endl;
     getline(cin, search);
