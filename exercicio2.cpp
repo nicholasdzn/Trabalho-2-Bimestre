@@ -164,17 +164,17 @@ int main () {
     // EXIBE O RESULTADO - CORRIGIR FORMATAÇÃO NA IMPRESSÃO - DEIXAR ALINHADO
     cout << '\t';
     for (int i = 0; i < LIMIT_RATINGS; i++) {
-        cout << allRatings[i] << '\t';
+        cout << left << setw(10) << allRatings[i] << setw(10);
     }
     cout << endl;
 
     NodeRating *aux;
     for (int i = 0; i < LIMIT_YEARS; i++) {
         if (allYears[i] == 0)  break;
-        cout <<  yearsStruct[i].year << '\t';
+        cout << setw(10) << yearsStruct[i].year << setw(10);
         aux = &yearsStruct[i].node;
         while (aux->next != NULL) {
-            cout << aux->count << '\t';
+            cout << setw(10) << aux->count << setw(10);
             aux = (NodeRating *) aux->next;
         }
         cout << endl;

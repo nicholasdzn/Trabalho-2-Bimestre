@@ -88,7 +88,8 @@ int main() {
                 foundNsfw = netflix[i].ratingLevel.find("sexual");
                 if(foundViolence != -1){
                     violenceCount++;
-                }else if(foundNsfw != -1){
+                } 
+                if(foundNsfw != -1){
                     nsfwCount++;
                 }
             }
