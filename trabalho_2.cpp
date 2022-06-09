@@ -240,6 +240,62 @@ void printYearForYear (Movies movies[], int firstYear, int lastYear, int qtn_reg
 }
 /** EXERCICIO 3 */
 
+/** EXERCICIO 4 */
+void orderMoviesByYearDesc(Movies movies[], int n) {
+    Movies aux;
+    for (int i = 1; i < n; i++) {
+        for (int j = 1; j < n; j++) {
+            if (movies[i].releaseYear > movies[j].releaseYear) {
+                aux = movies[j];
+                movies[j] = movies[i];
+                movies[i] = aux;
+            }
+        }
+    }
+}
+
+void orderMoviesByYearAndRatingScore(Movies movies[], int n, int year) {
+    Movies aux;
+    for (int i = 1; i < n; i++) {
+        if (movies[i].releaseYear != year) continue;
+
+        for (int j = 1; j < n; j++) {
+            if (movies[i].userRating > movies[j].userRating) {
+                aux = movies[j];
+                movies[j] = movies[i];
+                movies[i] = aux;
+            }
+        }
+    }
+}
+
+void createFileTopMovies (int allYears[], Movies movies[], int top, int limit_registers, int limit_years) {
+    string namefile_output = "most_apreciate_movies_each_year.csv";
+    ofstream fileOut(namefile_output, ios::out);
+
+    string temp_title_movie;
+
+    fileOut << "title;" << "rating;" << "ratingLevel;" << "ratingDescription;" << "releaseyear;" << "user rating score;" << "user rating size;";
+    for (int i = 0; i < limit_years; i++) {
+        if (allYears[i] == 0) break;
+        for (int j = 1, k = 0; j < limit_registers; j++) {
+            if (k == top) break;
+            if (movies[j].releaseYear != allYears[i]) continue;
+            if (temp_title_movie == movies[j].title) continue;
+            temp_title_movie = movies[j].title;
+            fileOut << movies[j].title << ";";
+            fileOut << movies[j].rating << ";";
+            fileOut << movies[j].ratingLevel << ";";
+            fileOut << movies[j].ratingDescription << ";";
+            fileOut << movies[j].releaseYear << ";";
+            fileOut << movies[j].userRating << ";";
+            fileOut << movies[j].userRatingSize << ";";
+            k++;
+        }
+    }
+}
+/** EXERCICIO 4 */
+
 int main () {
     string filename = "netflix_all.csv";
 
@@ -310,8 +366,18 @@ int main () {
     int lastYear = getLastYear(allYears, LIMIT_YEARS);
 
     // printYearForYear (Movies movies[], int firstYear, int lastYear, int qtn_registers)
-    printYearForYear(movies, firstYear, lastYear, QUANTITY_REGISTER);
+    // printYearForYear(movies, firstYear, lastYear, QUANTITY_REGISTER);
     /**======== EXERCICIO 3  ========*/
+
+    /**======== EXERCICIO 4  ========*/
+    orderMoviesByYearDesc(movies, QUANTITY_REGISTER);
+    for (int i = 0; i < LIMIT_YEARS; i++) {
+        if (allYears[i] == 0) break;
+        orderMoviesByYearAndRatingScore(movies, QUANTITY_REGISTER, allYears[i]);
+    }
+    // createFileTopMovies (int allYears[], Movies movies[], int top, int limit_registers, int limit_years)
+    createFileTopMovies(allYears, movies, 10, QUANTITY_REGISTER, LIMIT_YEARS);
+    /**======== EXERCICIO 4  ========*/
 
 
     file_read.close();
