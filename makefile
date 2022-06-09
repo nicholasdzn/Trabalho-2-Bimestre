@@ -1,4 +1,4 @@
 CC := g++
 
-build: exercicio4.cpp 
-	$(CC) -o main exercicio4.cpp 
+build: trabalho_2.cpp 
+	$(CC) -o main trabalho_2.cpp 

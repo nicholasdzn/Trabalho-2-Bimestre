@@ -71,6 +71,7 @@ int main() {
         cout << "Ano: " << year << " Quantidade: " << yearCount << endl;
         year--;
     }
+    return 0;
     //=======================================================================
 
     //exercicio 5
