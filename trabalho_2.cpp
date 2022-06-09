@@ -41,6 +41,31 @@ int wrapper_stoi (string number) {
     return stoi(number);
 }
 
+int lengthstring (string str) {
+    int i = 0;
+    while (str[i++] != '\0') ;
+    return i;
+}
+
+//string to upper
+string toupper (string convert) {
+    int n = lengthstring(convert);
+    for (int i = 0 ; i < n; i++) {
+        if (convert[i] >= 97 && convert[i] <= 122) {
+            convert[i] -= 32;
+        }
+    }
+    return convert;
+}
+
+//remove /n
+string removebreakline (string text) {
+    int n = lengthstring(text);
+    for (int i = 0; i < n; i++) {
+        if (text[i] == '\n')  text[i] = ' ';
+    }
+    return text;
+}
 
 // verifica registro duplicados e filtra
 bool igualMovie (Movies m1, Movies m2) {
@@ -328,9 +353,33 @@ void printInfoViolenteAndSexualContent (Movies movies[], int firstYear, int last
 
 /** EXERCICIO 5 */
 
+/** EXERCICIO 6 */
+
+void findRegistersByTitle (string search, Movies movies[], int registers) {
+    int foundSearch;
+    int searchCount = 0;
+    search = toupper(search);
+    string temp_title;
+    for(int i = 1; i <= registers; i++){
+        temp_title = toupper(movies[i].title);
+        foundSearch = temp_title.find(search);
+        if(foundSearch != -1){
+            cout << "Titulo: " << removebreakline(movies[i].title) << " | ";
+            cout << "Faixa Etaria: " << movies[i].rating << " | ";
+            cout << "descricao: " << movies[i].ratingLevel << endl;
+            searchCount++;
+        }
+    }
+
+    if(searchCount == 0){
+        cout << "Nao foi encontrado nenhum titulo !" << endl;
+    }
+}
+
+/** EXERCICIO 6 */
+
 int main () {
     string filename = "netflix_all.csv";
-
     ifstream file_read(filename, ios::in);
 
     if (!file_read.is_open()) {
@@ -412,8 +461,17 @@ int main () {
     /**======== EXERCICIO 4  ========*/
 
     /**======== EXERCICIO 5  ========*/
-    printInfoViolenteAndSexualContent(movies, firstYear, lastYear, QUANTITY_REGISTER);
+    // printInfoViolenteAndSexualContent(movies, firstYear, lastYear, QUANTITY_REGISTER);
     /**======== EXERCICIO 5  ========*/
+
+
+    /**======== EXERCICIO 6  ========*/
+    string search;
+    cout << "Digite um titulo que deseja encontrar: " << endl;
+    getline(cin, search);
+    
+    findRegistersByTitle(search, movies, QUANTITY_REGISTER);
+    /**======== EXERCICIO 6  ========*/
 
     file_read.close();
 
