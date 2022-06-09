@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <iomanip>
+#include <algorithm>
 
 #define EXIT_CODE_ERROR 1
 #define EXIT_CODE_SUCCESS 0
@@ -296,6 +297,37 @@ void createFileTopMovies (int allYears[], Movies movies[], int top, int limit_re
 }
 /** EXERCICIO 4 */
 
+/** EXERCICIO 5 */
+void printInfoViolenteAndSexualContent (Movies movies[], int firstYear, int lastYear, int registers) {
+    int violenceCount = 0;
+    int foundViolence;
+    int foundNsfw;
+    int nsfwCount = 0;
+    
+    //loop começando em firstyear e sendo iterado ate chegar em lastyear, percorrendo por todos os filmes
+    while(firstYear >= lastYear){
+        for(int i = 1; i <= registers; i++){
+            if(movies[i].releaseYear == firstYear){
+                foundViolence = movies[i].ratingLevel.find("violence");
+                foundNsfw = movies[i].ratingLevel.find("sexual");
+                if(foundViolence != -1){
+                    violenceCount++;
+                } 
+                if(foundNsfw != -1){
+                    nsfwCount++;
+                }
+            }
+        }
+        //iterador negativo
+        firstYear--;
+    }
+
+    cout << "Filmes Violentos: " << violenceCount << " porcentagem: " << (100*violenceCount)/1000 << "%" << endl;
+    cout << "Filmes contendo sexual content: " << nsfwCount << " porcentagem: " << (100*nsfwCount)/1000 << "%" << endl;
+}
+
+/** EXERCICIO 5 */
+
 int main () {
     string filename = "netflix_all.csv";
 
@@ -376,9 +408,12 @@ int main () {
         orderMoviesByYearAndRatingScore(movies, QUANTITY_REGISTER, allYears[i]);
     }
     // createFileTopMovies (int allYears[], Movies movies[], int top, int limit_registers, int limit_years)
-    createFileTopMovies(allYears, movies, 10, QUANTITY_REGISTER, LIMIT_YEARS);
+    // createFileTopMovies(allYears, movies, 10, QUANTITY_REGISTER, LIMIT_YEARS);
     /**======== EXERCICIO 4  ========*/
 
+    /**======== EXERCICIO 5  ========*/
+    printInfoViolenteAndSexualContent(movies, firstYear, lastYear, QUANTITY_REGISTER);
+    /**======== EXERCICIO 5  ========*/
 
     file_read.close();
 
