@@ -241,7 +241,7 @@ int getLastYear (int allYears[], int qtn_years) {
     int menor = allYears[0];
     for (int i = 1; i < qtn_years; i++) {
         if (allYears[i] == 0) break;
-        if (menor > allYears[i]) {
+        if (allYears[i] < menor) {
             menor = allYears[i];
         }
     }
@@ -298,7 +298,7 @@ void orderMoviesByYearAndRatingScore(Movies movies[], int n, int year) {
 void createFileTopMovies (int allYears[], Movies movies[], int top, int limit_registers, int limit_years) {
     string namefile_output = "most_apreciate_movies_each_year.csv";
     ofstream fileOut(namefile_output, ios::out);
-
+    if (!fileOut) error("Nao foi possivel criar o arquivo");
     string temp_title_movie;
 
     fileOut << "title;" << "rating;" << "ratingLevel;" << "ratingDescription;" << "releaseyear;" << "user rating score;" << "user rating size;";
@@ -319,6 +319,7 @@ void createFileTopMovies (int allYears[], Movies movies[], int top, int limit_re
             k++;
         }
     }
+    cout << "Criado o arquivo " << namefile_output << " contendo os TOP " << top << " FILMES de cada ano. " << endl; 
 }
 /** EXERCICIO 4 */
 
@@ -378,7 +379,26 @@ void findRegistersByTitle (string search, Movies movies[], int registers) {
 
 /** EXERCICIO 6 */
 
+/** MENU */
+void printMenu () {
+    cout << "\t ==============           TRABALHO SEGUNDO BIMESTRE        ==============" << endl;
+    cout << "\t ==============  Laboratório de Técnicas de Programação II ==============" << endl;
+    cout << "\t ==============        CATALOGO DE FILMES NETFLIX          ==============" << endl;
+}
+void printOptions () {
+    cout << "\t ==============              OPCOES MENU:                  ============== " << endl;
+    cout << "\t ==============        A OPCAO E O NUMERO DO EXERCICIO     ============== " << endl;
+    cout << "EXERCICIO 1: " << "ENTRADA DOS DADOS DO ARQUIVO NO PROGRAMA" << endl;
+    cout << "EXERCICIO 2: " << "TOTALIZACAO DE VIDEOS ANO A ANO PARA TODOS OS POSSIVEIS RATINGS" << endl;
+    cout << "EXERCICIO 3: " << "FILMES LANCADOS A CADA ANO" << endl;
+    cout << "EXERCICIO 4: " << "GERA ARQUIVO COM OS 10 FILMES MAIS APRECIADOS PELO USUARIOS" << endl;
+    cout << "EXERCICIO 5: " << "PORCENTAGEM DOS FILMES COM RATING DESCRIPTION VIOLENTE E SEXUAL CONTENT" << endl;
+    cout << "EXERCICIO 6: " << "PESQUISA DOS FILMES POR TITULO" << endl;
+}
+/** MENU */
+
 int main () {
+    /**======== EXERCICIO 1  ========*/
     string filename = "netflix_all.csv";
     ifstream file_read(filename, ios::in);
 
@@ -419,59 +439,95 @@ int main () {
 
         indice++;
     }
-
+    /**======== EXERCICIO 1  ========*/
     Movies movies[QUANTITY_REGISTER];
     int quantidade_registros = filter_registers(movies,buffer_movies, QUANTITY_REGISTER);
 
-    /**======== EXERCICIO 2  ========*/
     int allYears[LIMIT_YEARS];
     string allRatings[LIMIT_RATINGS];
 
-    int qtn_years = populateYears(allYears, movies, QUANTITY_REGISTER);
-    int qtn_ratings = populateRatings(allRatings, movies, QUANTITY_REGISTER);
-    orderYearsDesc(allYears, LIMIT_YEARS);
-
     Year yearsStruct[LIMIT_YEARS];
-
     NodeRating node_ratings[LIMIT_RATINGS * LIMIT_YEARS];
 
-    //populateyearsStructNodes(Year yearsStruct[], NodeRating node_ratings[], int allYears[], string allRatings[], Movies movies[], int limit_years, int limit_ratings, int qtn_registers)
-    populateyearsStructNodes(yearsStruct, node_ratings, allYears, allRatings, movies, LIMIT_YEARS, LIMIT_RATINGS, QUANTITY_REGISTER);
+    populateYears(allYears, movies, QUANTITY_REGISTER);
+    populateRatings(allRatings, movies, LIMIT_RATINGS);
+    orderYearsDesc(allYears, LIMIT_YEARS);
 
-    //printTotalMoviesEachYearForRating (Year yearsStruct[], int allYears[], string allRatings[], int limit_years, int limit_ratings);
-    // printTotalMoviesEachYearForRating(yearsStruct, allYears, allRatings, LIMIT_YEARS, LIMIT_RATINGS);
-    /**======== EXERCICIO 2  ========*/
+    printMenu();
+    int option;
+    bool sair = false;
 
-    /**======== EXERCICIO 3  ========*/
-    int firstYear = getFirstYear(allYears, LIMIT_YEARS);
-    int lastYear = getLastYear(allYears, LIMIT_YEARS);
+    int firstYear = 0;
+    int lastYear = 0;
 
-    // printYearForYear (Movies movies[], int firstYear, int lastYear, int qtn_registers)
-    // printYearForYear(movies, firstYear, lastYear, QUANTITY_REGISTER);
-    /**======== EXERCICIO 3  ========*/
-
-    /**======== EXERCICIO 4  ========*/
-    orderMoviesByYearDesc(movies, QUANTITY_REGISTER);
-    for (int i = 0; i < LIMIT_YEARS; i++) {
-        if (allYears[i] == 0) break;
-        orderMoviesByYearAndRatingScore(movies, QUANTITY_REGISTER, allYears[i]);
-    }
-    // createFileTopMovies (int allYears[], Movies movies[], int top, int limit_registers, int limit_years)
-    // createFileTopMovies(allYears, movies, 10, QUANTITY_REGISTER, LIMIT_YEARS);
-    /**======== EXERCICIO 4  ========*/
-
-    /**======== EXERCICIO 5  ========*/
-    // printInfoViolenteAndSexualContent(movies, firstYear, lastYear, QUANTITY_REGISTER);
-    /**======== EXERCICIO 5  ========*/
-
-
-    /**======== EXERCICIO 6  ========*/
     string search;
-    cout << "Digite um titulo que deseja encontrar: " << endl;
-    getline(cin, search);
+
+    while (!sair) {
+        printOptions();
+
+        cout << "Informe qual o exercicio exibir: " << endl;
+        cin >> option;
     
-    findRegistersByTitle(search, movies, QUANTITY_REGISTER);
-    /**======== EXERCICIO 6  ========*/
+        switch (option) {
+            case 1:
+                /**======== EXERCICIO 1  ========*/
+                cout << "Os dados do arquivo ja foram armazenados na memoria" << endl;
+                /**======== EXERCICIO 1  ========*/
+                break;
+            case 2:
+                /**======== EXERCICIO 2  ========*/
+                populateyearsStructNodes(yearsStruct, node_ratings, allYears, allRatings, movies, LIMIT_YEARS, LIMIT_RATINGS, QUANTITY_REGISTER);
+
+                printTotalMoviesEachYearForRating(yearsStruct, allYears, allRatings, LIMIT_YEARS, LIMIT_RATINGS);
+                /**======== EXERCICIO 2  ========*/
+                break;
+
+            case 3:
+                /**======== EXERCICIO 3  ========*/
+                firstYear = getFirstYear(allYears, LIMIT_YEARS);
+                lastYear = getLastYear(allYears, LIMIT_YEARS);
+
+                printYearForYear(movies, firstYear, lastYear, QUANTITY_REGISTER);
+                /**======== EXERCICIO 3  ========*/
+                break;
+
+            case 4:
+                /**======== EXERCICIO 4  ========*/
+                orderMoviesByYearDesc(movies, QUANTITY_REGISTER);
+                for (int i = 0; i < LIMIT_YEARS; i++) {
+                    if (allYears[i] == 0) break;
+                    orderMoviesByYearAndRatingScore(movies, QUANTITY_REGISTER, allYears[i]);
+                }
+                
+                createFileTopMovies(allYears, movies, 10, QUANTITY_REGISTER, LIMIT_YEARS);
+                /**======== EXERCICIO 4  ========*/
+                break;
+
+            case 5:
+                /**======== EXERCICIO 5  ========*/
+                firstYear = getFirstYear(allYears, LIMIT_YEARS);
+                lastYear = getLastYear(allYears, LIMIT_YEARS);
+                printInfoViolenteAndSexualContent(movies, firstYear, lastYear, QUANTITY_REGISTER);
+                /**======== EXERCICIO 5  ========*/
+                break;
+            case 6:
+                /**======== EXERCICIO 6  ========*/
+                cout << "Digite um titulo que deseja encontrar: " << endl;
+                setbuf(stdin, NULL);
+                getline(cin, search);
+                
+                findRegistersByTitle(search, movies, QUANTITY_REGISTER);
+                /**======== EXERCICIO 6  ========*/
+                break;
+            default:
+                cout << "!!!!!!!!!!!! Opcao desconhecida !!!!!!!!!!!!" << endl;
+                break;
+        }
+
+        cout << "Deseja encerrar o programa ? 1 sim - 0 nao  ";
+        cin >> sair;
+        system("clear");
+    }
 
     file_read.close();
 
