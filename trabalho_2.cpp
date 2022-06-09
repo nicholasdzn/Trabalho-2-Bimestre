@@ -200,6 +200,46 @@ void printTotalMoviesEachYearForRating (Year yearsStruct[], int allYears[], stri
 
 /** EXERCICIO 2 */
 
+
+/** EXERCICIO 3 */
+int getFirstYear (int allYears[], int qtn_years) {
+    int maior = allYears[0];
+    for (int i = 1; i < qtn_years; i++) {
+        if (allYears[i] > maior)    {
+            maior = allYears[i];
+        }
+    } 
+    return maior;
+}
+int getLastYear (int allYears[], int qtn_years) {
+    int menor = allYears[0];
+    for (int i = 1; i < qtn_years; i++) {
+        if (allYears[i] == 0) break;
+        if (menor > allYears[i]) {
+            menor = allYears[i];
+        }
+    }
+    return menor;
+}
+void printYearForYear (Movies movies[], int firstYear, int lastYear, int qtn_registers) {
+    int yearCount = 0;
+    int ratingCount = 0;
+
+    while(firstYear >= lastYear){
+        yearCount = 0;
+        for(int i = 1; i <= qtn_registers; i++){
+            if(movies[i].releaseYear == firstYear) yearCount++;    
+        }
+        if(yearCount == 0){
+            firstYear--;
+            continue;
+        }
+        cout << "Ano: " << firstYear << " Quantidade: " << yearCount << endl;
+        firstYear--;
+    }
+}
+/** EXERCICIO 3 */
+
 int main () {
     string filename = "netflix_all.csv";
 
@@ -250,13 +290,11 @@ int main () {
     int allYears[LIMIT_YEARS];
     string allRatings[LIMIT_RATINGS];
 
-    int qtn_years = populateYears(allYears, movies, LIMIT_YEARS);
-    int qtn_ratings = populateRatings(allRatings, movies, LIMIT_RATINGS);
+    int qtn_years = populateYears(allYears, movies, QUANTITY_REGISTER);
+    int qtn_ratings = populateRatings(allRatings, movies, QUANTITY_REGISTER);
     orderYearsDesc(allYears, LIMIT_YEARS);
 
-
     Year yearsStruct[LIMIT_YEARS];
-
 
     NodeRating node_ratings[LIMIT_RATINGS * LIMIT_YEARS];
 
@@ -266,6 +304,14 @@ int main () {
     //printTotalMoviesEachYearForRating (Year yearsStruct[], int allYears[], string allRatings[], int limit_years, int limit_ratings);
     // printTotalMoviesEachYearForRating(yearsStruct, allYears, allRatings, LIMIT_YEARS, LIMIT_RATINGS);
     /**======== EXERCICIO 2  ========*/
+
+    /**======== EXERCICIO 3  ========*/
+    int firstYear = getFirstYear(allYears, LIMIT_YEARS);
+    int lastYear = getLastYear(allYears, LIMIT_YEARS);
+
+    // printYearForYear (Movies movies[], int firstYear, int lastYear, int qtn_registers)
+    printYearForYear(movies, firstYear, lastYear, QUANTITY_REGISTER);
+    /**======== EXERCICIO 3  ========*/
 
 
     file_read.close();
